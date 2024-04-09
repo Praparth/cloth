@@ -1,0 +1,33 @@
+.shop{
+    background-image: url(https://www.next.us/nxtcms/resource/image/5901214/landscape_ratio7x3/960/411/6455807503a800e61350a9713643f430/6665D621C9C7018FFD44E62BE1D3FEAC/winter-occasionwear-bg.jpg);
+    width: fit-content;
+
+}
+
+
+<style>
+        body {
+            overflow: hidden;
+        }
+
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 25vh;
+        }
+
+        .card-body {
+            flex: 1;
+            height: 230px; /* Fixed height for the card body */
+        }
+
+        .card-buttons {
+            margin-top: auto;
+        }
+    </style>

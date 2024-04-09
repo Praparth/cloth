@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+</head>
+<body>
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+            
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+
+    <!-- toggle button on nanbar  -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let current = "show";
+                let product = document.querySelector("#product-item");
+                let search = document.querySelector("#search-item");
+                let profile = document.querySelector("#profile-item");
+                let hide = document.getElementById("hide");
+    
+                hide.addEventListener("click", () => {
+                    if (current === "show") {
+                        console.log("show");
+                        current = "hide";
+                        product.classList.add("d-flex");
+                        product.classList.remove("d-none");
+    
+                        search.classList.add("d-block");
+                        search.classList.remove("d-none");
+    
+                        profile.classList.add("d-flex");
+                        profile.classList.remove("d-none");
+                    } else {
+                        console.log("hide");
+                        current = "show";
+                        product.classList.add("d-none");
+                        product.classList.remove("d-flex");
+    
+                        search.classList.add("d-none");
+                        search.classList.remove("d-block");
+    
+                        profile.classList.add("d-none");
+                        profile.classList.remove("d-flex");
+                    }
+                });
+            });
+        </script>
+    
+    // echo '<div class="col-md-4">';
+        // echo '<div class="card my-3">';
+        // echo '<img src="' . $row['product_image'] . '" class="card-img-top" alt="' . $row['product_name'] . '">';
+        // echo '<div class="card-body">';
+        // echo '<h5 class="card-title">' . $row['product_name'] . '</h5>';
+        // echo '<p class="card-text">' . $row['product_detail'] . '</p>';
+        // echo '<p class="card-text">$' . $row['product_price'] . '</p>';
+        // echo '<p class="card-text">' . $row['product_upload_td'] . '</p>';
+        // echo '<div class="card-buttons">';
+        // echo '<a href="#" class="btn btn-primary">Buy</a>';
+        // echo '<a href="#" class="btn btn-success">Add to Wishlist</a>';
+        // echo '</div>';
+        // echo '</div>';
+        // echo '</div>';
+        // echo '</div>';
+
+
+
+        <?php
+// Your database connection code goes here
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "cloth";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+    .card {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* Set a fixed height for the image */
+        
+    }
+
+    .card-body {
+        flex: 1;
+    }
+    </style>
+</head>
+
+<body>
+    <?php require 'navbar.php'; ?>
+    <!-- Main content -->
+    <div class="container mt-5">
+        <h2>Product List</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <?php
+
+            // Perform SQL query to fetch products
+            $sql = "SELECT * FROM `product` ORDER BY `product_upload_td` DESC";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <div class="col">
+                        <div class="card">
+                            <img src="<?php echo $row['product_image']; ?>" class="card-img-top" alt="<?php echo $row['product_name']; ?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $row['product_name']; ?></h5>
+                                <p class="card-text"><?php echo $row['product_detail']; ?></p>
+                                <p class="card-text">$<?php echo $row['product_price']; ?></p>
+                                
+                                <div class="card-buttons">
+                                    <a href="#" class="btn btn-primary">Buy</a>
+                                    <a href="#" class="btn btn-success">Add to Wishlist</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo "0 results";
+            }
+            $conn->close();
+            ?>
+        </div>
+    </div>
+    <!-- Main content end -->
+
+    <?php require 'footer.php'; ?>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+</body>
+
+</html>
+
+<!-- add to card  -->
+<form action="manage_cart.php" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Product Image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Check if there are products in the database result
+            if(mysqli_num_rows($result) > 0) {
+                // Initialize a counter variable
+                $counter = 1;
+                // Loop through each product in the database result
+                while($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <th scope="row"><?php echo $counter++; ?></th>
+                        <td><img src="<?php echo $row['product_image']; ?>" alt="Product Image" style="max-width: 100px;"></td>
+                        <td><?php echo $row['product_name']; ?></td>
+                        <td>$<?php echo $row['product_price']; ?></td>
+                        <td><input type="number" name="product_qty[]" value="1" min="1"></td>
+                        <td>
+                            <button type="submit" name="Add_To_Cart" class="btn btn-primary">
+                                Add to Cart
+                            </button>
+                            <input type="hidden" name="Item_Name" value="<?php echo $row['product_name']; ?>">
+                            <input type="hidden" name="Price" value="<?php echo $row['product_price']; ?>">
+                        </td>
+                    </tr>
+                    <?php
+                }
+            } else {
+                ?>
+                <tr>
+                    <td colspan="6" class="text-center">No products found</td>
+                </tr>
+                <?php
+            }
+            ?>
+        </tbody>
+    </table>
+</form>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+    // Handle click event of Buy button
+    $(".buy-btn").click(function () {
+        var productId = $(this).data("product-id");
+        var productName = $(this).data("product-name");
+        var productPrice = $(this).data("product-price");
+        var productImage = $(this).data("product-image");
+
+        // Send AJAX request to insert the product
+        $.ajax({
+            url: "user_insert_product.php",
+            method: "POST",
+            data: {
+                buy_product: true,
+                product_id: productId,
+                product_name: productName,
+                product_price: productPrice,
+                product_image: productImage
+            },
+            success: function (response) {
+                // Handle success response
+                console.log("Product added to cart");
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error("Error:", error);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        // Add event listener to "Add to Wishlist" button
+        $('.add-to-wishlist').click(function() {
+            // Get the product ID from the data attribute
+            var productId = $(this).data('product-id');
+
+            // AJAX request to add product to wishlist
+            $.ajax({
+                url: 'user_add_to_wishlist_insert.php', // PHP script to handle the request
+                method: 'POST',
+                data: {
+                    productId: productId
+                },
+                success: function(response) {
+                    // Handle success response
+                    alert('Product added to wishlist successfully!');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
+
+
+</body>
+</html>
